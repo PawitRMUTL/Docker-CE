@@ -1,0 +1,51 @@
+version: '3'
+###### For create container and run
+services:
+  # Database
+  Database:
+    image: mysql:5.7.39
+
+    container_name: Dolphin_mysql_compose
+
+    environment:
+      MYSQL_ROOT_PASSWORD: keep1234
+      MYSQL_DATABASE: Portal
+      MYSQL_ROOT_USERNAME: root
+      MYSQL_PASSWORD: keep1234
+    volumes:
+      - ./portal.sql:/docker-entrypoint-initdb.d/portal.sql
+  # phpmyadmin
+  phpmyadmin:
+    depends_on:
+      - Database
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_compose
+    restart: on-failure #restart container after application cache
+    environment:
+      PMA_HOST: Database
+      MYSQL_ROOT_USERNAME: root
+  frontend:
+    image: pawitpt/frontend:v1.0.1
+    ports:
+      - '80:tcp'
+  backend:
+    image: pawitpt/backend:1.0.1
+    ports:
+      - '3000:3000'
+  ####### run dockfile
+  # #Front-end
+  # front_end:
+  #   build:
+  #     context: ./CEreform-frond-end #build from folder
+  #     dockerfile: dockerfile # Specify the Dockerfile to use
+  #   ports:
+  #     - '4000:80' # Map port 4000 on the host to port 80 in the container
+
+  # #Back-end
+  # back_end:
+  #   build:
+  #     context: ./CEreform-back-end #build from folder
+  #     dockerfile: dockerfile # Specify the Dockerfile to use
+  #   restart: always #restart container after application cache
+  #   ports:
+  #     - '3000:3000' # Map port 3000 on the host to port 3000 in the container

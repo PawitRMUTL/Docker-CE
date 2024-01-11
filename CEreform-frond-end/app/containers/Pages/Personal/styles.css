@@ -1,0 +1,204 @@
+/** @format */
+
+.section {
+  /* border: 2px solid red; */
+  padding: 1rem 3rem 0px 3rem;
+  /* gap: 20px; */
+  transition: ease-in-out 2s;
+  font-family: 'Noto Sans Thai';
+}
+article {
+  padding-left: 5%;
+  padding-right: 5%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.Card {
+  width: 345px;
+  height: 390px;
+  /* margin: auto; */
+  /* background-color: #2315; */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.Card img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+}
+
+h2 {
+  font-size: 24px;
+  font-family: 'Noto Sans Thai';
+  font-weight: 600;
+  margin: 20px 0px 5px;
+}
+h4 {
+  font-family: 'Noto Sans Thai';
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  /* line-height: 10px; */
+}
+
+button {
+  font-family: 'Noto Sans Thai';
+  text-align: left;
+  padding: 0px;
+  margin-top: 10px;
+  color: #fe6f41;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  background-color: transparent;
+}
+
+.ModalLayout {
+  /* padding-top: 5%; */
+  padding-left: 5%;
+  padding-right: 5%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+  font-family: 'Noto Sans Thai';
+}
+
+.ModalLayout span {
+  font-family: 'Noto Sans Thai';
+}
+
+.Modaltitle {
+  font-family: 'Noto Sans Thai';
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 18px;
+  color: black;
+}
+.ModalSujectForTeccher {
+  width: 100%;
+  height: 100px;
+  max-height: 150px;
+  /* border: 2px solid seagreen; */
+  overflow-y: auto;
+}
+.ModalSujectForTeccher ul,
+li {
+  padding: 5px;
+  word-wrap: break-word;
+  /* text-indent: 5px; */
+  font-size: 14px;
+}
+.ModalEmail {
+  font-family: 'Noto Sans Thai';
+  /* margin-top: 2rem; */
+  /* margin-bottom: 2%; */
+  font-weight: 600;
+  font-size: 18px;
+  color: #fe6439;
+}
+.ModalLayout img {
+  border-radius: 50%;
+  width: 197px;
+  height: 188px;
+}
+.ModalCloseIcon {
+  position: absolute;
+  right: 6%;
+  top: 3%;
+  cursor: pointer;
+}
+.ModalSubject {
+  margin: 12px 0px 12px;
+  width: 100%;
+  height: 100px;
+  /* border: 3px solid red; */
+  padding: 1%;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.ModalSubject span {
+  font-size: 16px;
+  color: #125d98;
+  font-weight: 400;
+  line-height: 24px;
+}
+.ModalEducation {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 70px;
+  overflow-y: auto;
+  /* border: 3px solid red; */
+  margin-bottom: 4%;
+}
+.ModalEducation span {
+  font-size: 16px;
+  color: black;
+  font-weight: 400;
+  line-height: 30px;
+}
+.Modalicon {
+  margin-top: 20%;
+  /* border: 2px solid red; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.Modalicon span {
+  font-size: 12px;
+  color: black;
+}
+.Modalicon img {
+  margin-right: 6px;
+  width: 24px;
+  height: 24px;
+  padding: 1px;
+}
+/* Tablet Styles */
+@media (max-width: 768px) {
+  article {
+    padding-left: 3%;
+    padding-right: 3%;
+    height: 700;
+    /* gap: 10px; */
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  .Card {
+    width: 300px;
+    height: 390px;
+    margin: 4px;
+    display: flex;
+    border-radius: 20px;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+  .section {
+    /* padding: 1rem 1rem 0px 1rem; */
+    transition: ease-in-out 2s;
+    font-family: 'Noto Sans Thai';
+  }
+  .Card {
+    width: 300px;
+    height: 390px;
+    display: flex;
+    border-radius: 20px;
+    margin-bottom: 4px;
+  }
+}
