@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+# Database
+   Database:
+     image: mysql:5.7.39
+     container_name: Dolphin_mysql_compose
+     environment:
+       MYSQL_ROOT_PASSWORD: keep1234
+       MYSQL_DATABASE: Portal
+       MYSQL_ROOT_USERNAME: root
+       MYSQL_PASSWORD: keep1234
+     volumes:
+       - ./portal.sql:/docker-entrypoint-initdb.d/portal.sql
+     networks:
+       - my-network
+
+  # phpMyAdmin
+   phpmyadmin:
+     depends_on:
+       - Database
+     image: phpmyadmin/phpmyadmin
+     container_name: phpmyadmin_compose
+     restart: on-failure
+     environment:
+       PMA_HOST: Database
+       MYSQL_ROOT_USERNAME: root
+     networks:
+       - my-network
+  # Backend
+   backend:
+     container_name: myapp_backend
+     image: pawitpt/backend
+     ports:
+       - "3000:3000"
+     networks:
+       my-network:
+         ipv4_address: 192.168.5.2
+  # Frontend
+   frontend:
+    container_name: myapp_frontend
+    image: pawitpt/frontend
+    ports:
+      - "80:80"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.5.0/24
