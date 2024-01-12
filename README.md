@@ -1,4 +1,4 @@
-# 😄😄 CE_REFROM - Information Management System 😄😄
+# 😄 CE_REFROM - Information Management System 😄
 
 ## Welcome!
 Hello everyone! Welcome to CE_REFROM, an Information Management System designed for teaching and learning. This project serves as a case study in the computer engineering curriculum at RMUTL.
