@@ -16,7 +16,7 @@ The CE_REFROM consists of a Website Application and Web Service. This project is
 - Look at the `Docker-compose.yaml` file to run the project on localhost.
 
 ### 2. Docker Compose for Server
-- Examine the `t-docker-compose.yaml` file for running the project on a server.
+- Examine the `docker-compose.yaml` file for running the project on a server.
   - Create a directory, place the YAML file inside, and copy the code into `docker-compose.yml` on the server.
   - Use the command `scp` to copy the SQL file from localhost to the server (`scp portal.sql /home/app/web`).
   - Execute either `docker-compose up` or `docker-compose up -d` to start the application.
