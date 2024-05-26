@@ -6,6 +6,7 @@ const AuthBearer = require('hapi-auth-bearer-token');
 var express = require('express');
 const multer = require('multer');
 const cors = require('cors');
+const os = require('os');
 
 // const AgentStatus = require('./respository/AgentStatus');
 // const Inbound = require('./respository/Inbound');
@@ -86,10 +87,12 @@ const init = async () => {
   server.route({
     method: 'GET',
     path: '/test',
-    handler: () => {
-      return '<h3> Test connect </h3>';
+    handler: (request, h) => {
+      const hostname = os.hostname();
+      return `<h3>Hostname: ${hostname}</h3><p>Test connect</p>`;
     },
   });
+
   // Read_report
   server.route({
     method: 'POST',
@@ -173,7 +176,7 @@ const init = async () => {
           Newscontent,
           Newscontent2,
           Newsheading,
-          Createby
+          Createby,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -246,7 +249,7 @@ const init = async () => {
           Newscontent,
           Newscontent2,
           Newsheading,
-          Createby
+          Createby,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -320,7 +323,7 @@ const init = async () => {
           SelecteFirst,
           SelecteLast,
           SelecteCooperativeTopic,
-          SelecteCooperativeContent
+          SelecteCooperativeContent,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -391,7 +394,7 @@ const init = async () => {
             DoctorCuriculum,
             DoctorMajor,
             DoctorYear,
-            DoctorUniversity
+            DoctorUniversity,
           );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -435,7 +438,7 @@ const init = async () => {
             Subjectteach2,
             Subjectteach3,
             Subjectteach4,
-            Subjectteach5
+            Subjectteach5,
           );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -485,7 +488,7 @@ const init = async () => {
           email,
           religion,
           nationality,
-          phone
+          phone,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -520,7 +523,7 @@ const init = async () => {
           email,
           date,
           nationality,
-          religion
+          religion,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -552,7 +555,7 @@ const init = async () => {
         const { username, password } = request.payload;
         const responsedata = await Login.authentication.authentication(
           username,
-          password
+          password,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -584,7 +587,7 @@ const init = async () => {
         const { username, password } = request.payload;
         const responsedata = await Login.authentication.authenticationadmin(
           username,
-          password
+          password,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -616,7 +619,7 @@ const init = async () => {
         const { username, password } = request.payload;
         const responsedata = await Login.authentication.authenticationteacher(
           username,
-          password
+          password,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -648,7 +651,7 @@ const init = async () => {
         const { token, tokenRole } = request.payload;
         const responsedata = await Login.authentication.verifyauthentication(
           token,
-          tokenRole
+          tokenRole,
         );
         return responsedata;
       } catch (err) {
@@ -764,7 +767,7 @@ const init = async () => {
       try {
         const { username } = request.payload;
         const responsedata = await student.student.ReadStudentByUsername(
-          username
+          username,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -795,7 +798,7 @@ const init = async () => {
       try {
         const { email } = request.payload;
         const responsedata = await teacher.teacher_detaill.thecher_listByEmail(
-          email
+          email,
         );
         if (responsedata.error) {
           return responsedata.errMessage;
@@ -883,7 +886,7 @@ const init = async () => {
           milliseconds,
           owner,
           year,
-          type
+          type,
         );
 
         if (responsedata.error) {
@@ -949,7 +952,7 @@ const init = async () => {
             fileStream.end();
             responsedata = upload.uploadfile.upload_image_tea_profile(
               filename,
-              ownerid
+              ownerid,
             );
           } else {
             console.log('Invalid file object:', file);
@@ -957,7 +960,7 @@ const init = async () => {
         }
         // Return a response after successful image upload
         return h.response(
-          'Images uploaded and inserted into the database successfully.'
+          'Images uploaded and inserted into the database successfully.',
         );
       } catch (err) {
         server.log(['error', 'home'], err);
@@ -1000,7 +1003,7 @@ const init = async () => {
 
             responsedata = upload.uploadfile.upload_image_stu_profile(
               filename,
-              ownerid
+              ownerid,
             );
           } else {
             console.log('Invalid file object:', file);
@@ -1008,7 +1011,7 @@ const init = async () => {
         }
         // Return a response after successful image upload
         return h.response(
-          'Images uploaded and inserted into the database successfully.'
+          'Images uploaded and inserted into the database successfully.',
         );
       } catch (err) {
         server.log(['error', 'home'], err);
@@ -1056,7 +1059,7 @@ const init = async () => {
         }
         // Return a response after successful image upload
         return h.response(
-          'Images uploaded and inserted into the database successfully.'
+          'Images uploaded and inserted into the database successfully.',
         );
       } catch (err) {
         server.log(['error', 'home'], err);
@@ -1215,7 +1218,7 @@ const init = async () => {
         }
         // Return a response after successful image upload
         return h.response(
-          'Images uploaded and inserted into the database successfully.'
+          'Images uploaded and inserted into the database successfully.',
         );
       } catch (err) {
         server.log(['error', 'home'], err);

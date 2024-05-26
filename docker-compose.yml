@@ -3,6 +3,7 @@ version: '3'
 services:
   # Database
   Database:
+    platform: linux/amd64
     image: mysql:5.7.39
 
     container_name: Dolphin_mysql_compose
@@ -15,37 +16,53 @@ services:
     volumes:
       - ./portal.sql:/docker-entrypoint-initdb.d/portal.sql
   # phpmyadmin
-  phpmyadmin:
-    depends_on:
-      - Database
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin_compose
-    restart: on-failure #restart container after application cache
-    environment:
-      PMA_HOST: Database
-      MYSQL_ROOT_USERNAME: root
-  frontend:
-    image: pawitpt/frontend:v1.0.1
+  # phpmyadmin:
+  #   depends_on:
+  #     - Database
+  #   image: phpmyadmin/phpmyadmin
+  #   container_name: phpmyadmin_compose
+  #   restart: on-failure #restart container after application cache
+  #   environment:
+  #     PMA_HOST: Database
+  #     MYSQL_ROOT_USERNAME: root
+  ####### run dockfile
+  # Front-end
+  front_end:
+    build:
+      context: ./CEreform-frond-end #build from folder
+      dockerfile: dockerfile # Specify the Dockerfile to use
     ports:
-      - '80:tcp'
-  backend:
-    image: pawitpt/backend:1.0.1
+      - '80:80' # Map port 4000 on the host to port 80 in the container
+    networks:
+      - my-network
+    # Backend
+  api:
+    platform: linux/amd64
+    # container_name: myapp_backend
+    build:
+      context: ./CEreform-back-end #build from folder
+      dockerfile: dockerfile # Specify the Dockerfile to use
+    deploy:
+      replicas: 1
+    networks:
+      - my-network
+  nginx:
+    platform: linux/amd64
+    container_name: myapp_nginx
+    image: nginx:latest
+    depends_on:
+      - api
     ports:
       - '3000:3000'
-  ####### run dockfile
-  #Front-end
-   front_end:
-     build:
-       context: ./CEreform-frond-end #build from folder
-       dockerfile: dockerfile # Specify the Dockerfile to use
-     ports:
-       - '4000:80' # Map port 4000 on the host to port 80 in the container
-
-  # #Back-end
-   back_end:
-     build:
-       context: ./CEreform-back-end #build from folder
-       dockerfile: dockerfile # Specify the Dockerfile to use
-     restart: always #restart container after application cache
-     ports:
-       - '3000:3000' # Map port 3000 on the host to port 3000 in the container
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    deploy:
+      replicas: 1
+    networks:
+      - my-network
+networks:
+  my-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.5.0/24
