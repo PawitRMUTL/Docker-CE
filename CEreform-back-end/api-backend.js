@@ -45,7 +45,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 //REST route for GET /status
-router.get('/status', function (req, res) {
+router.x('/status', function (req, res) {
   res.json({
     status: 'App is running!',
   });

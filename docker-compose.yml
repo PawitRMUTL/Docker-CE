@@ -15,6 +15,10 @@ services:
       MYSQL_PASSWORD: keep1234
     volumes:
       - ./portal.sql:/docker-entrypoint-initdb.d/portal.sql
+    networks:
+      my-network:
+        ipv4_address: '192.168.5.8'
+
   # phpmyadmin
   # phpmyadmin:
   #   depends_on:
@@ -27,21 +31,24 @@ services:
   #     MYSQL_ROOT_USERNAME: root
   ####### run dockfile
   # Front-end
+
   front_end:
     build:
       context: ./CEreform-frond-end #build from folder
       dockerfile: dockerfile # Specify the Dockerfile to use
+    # image: pawitpt/my-react:latest
     ports:
-      - '80:80' # Map port 4000 on the host to port 80 in the container
+      - '80:80'
     networks:
       - my-network
     # Backend
   api:
+    image: pawitpt/myapi:latest
     platform: linux/amd64
     # container_name: myapp_backend
-    build:
-      context: ./CEreform-back-end #build from folder
-      dockerfile: dockerfile # Specify the Dockerfile to use
+    # build:
+    # context: ./CEreform-back-end #build from folder
+    # dockerfile: dockerfile # Specify the Dockerfile to use
     deploy:
       replicas: 1
     networks:
