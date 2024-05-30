@@ -8,11 +8,17 @@ const multer = require('multer');
 const cors = require('cors');
 const os = require('os');
 
-// const AgentStatus = require('./respository/AgentStatus');
-// const Inbound = require('./respository/Inbound');
-// const Outbound = require('./respository/Outbound');
-// const OnlineAgent = require('./respository/OnlineAgent');
-// const Satisfaction = require('./respository/Satisfaction');
+const getIPAddress = () => {
+  const interfaces = os.networkInterfaces();
+  for (let interfaceName in interfaces) {
+    for (let interface of interfaces[interfaceName]) {
+      if (interface.family === 'IPv4' && !interface.internal) {
+        return interface.address;
+      }
+    }
+  }
+  return '0.0.0.0';
+};
 
 //---------------- Portal --------------------------------
 const Login = require('./respository/Portal/backend_login');
@@ -28,7 +34,7 @@ const env = require('./env.js');
 const hapiPort = 3000;
 const webSocketPort = 3201;
 const webPort = 3280;
-
+const hapiHost = getIPAddress();
 //---------------- COOKIE --------------------------------
 // const cookie = require('cookie-parser');
 var url = require('url');
@@ -45,7 +51,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 //REST route for GET /status
-router.x('/status', function (req, res) {
+router.get('/status', function (req, res) {
   res.json({
     status: 'App is running!',
   });
@@ -71,7 +77,7 @@ console.log('Running Environment: ' + env);
 const init = async () => {
   const server = hapi.Server({
     port: hapiPort,
-    host: '0.0.0.0',
+    host: hapiHost,
     routes: {
       cors: true,
     },
